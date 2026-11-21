@@ -1,0 +1,41 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "canary-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--var", "DEMO_INTERVAL_MINUTES:5"],
+      "port": 8787
+    },
+    {
+      "name": "canary-sim-missing",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--var", "SIMULATE:missing", "--var", "DEMO_INTERVAL_MINUTES:5"],
+      "port": 8787
+    },
+    {
+      "name": "canary-sim-wrong-owner",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--var", "SIMULATE:wrong_owner", "--var", "DEMO_INTERVAL_MINUTES:5"],
+      "port": 8787
+    },
+    {
+      "name": "canary-sim-integration-down",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "dev",
+        "--var",
+        "SIMULATE:integration_down",
+        "--var",
+        "DEMO_INTERVAL_MINUTES:5"
+      ],
+      "port": 8787
+    },
+    {
+      "name": "canary-sim-after-hours",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--var", "SIMULATE:after_hours", "--var", "DEMO_INTERVAL_MINUTES:5"],
+      "port": 8787
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "hubspot-lead-canary",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Canary leads for HubSpot lead routing: a Cloudflare Worker that submits test leads and checks contact, owner and notification.",
+  "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p scripts",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "cf-typegen": "wrangler types --strict-vars false",
+    "db:migrate:local": "wrangler d1 migrations apply lead-canary-internal --local && wrangler d1 migrations apply lead-canary-client-demo --local",
+    "db:migrate:remote": "node scripts/confirm.mjs \"Apply D1 migrations to REMOTE databases\" && wrangler d1 migrations apply lead-canary-internal --remote && wrangler d1 migrations apply lead-canary-client-demo --remote",
+    "deploy": "node scripts/confirm.mjs \"Deploy Lead Canary worker to Cloudflare\" && wrangler deploy",
+    "setup:hubspot": "tsx --env-file=.dev.vars scripts/setup-hubspot-test.ts",
+    "prepare": "sh scripts/install-git-hooks.sh"
+  },
+  "packageManager": "pnpm@11.11.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.4",
+    "@cloudflare/vitest-plugin": "1.4.12",
+    "@types/node": "26.6.6",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5",
+    "wrangler": "4.156.1"
+  },
+  "dependencies": {
+    "@sentry/cloudflare": "11.10.0"
+  }
+}

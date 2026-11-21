@@ -1,0 +1,40 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hubspot-lead-canary",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+  // database_id is omitted: local dev needs none. After `wrangler d1 create`, add each
+  // "database_id" here (see README, "Deploy").
+  "d1_databases": [
+    {
+      "binding": "DB_INTERNAL",
+      "database_name": "lead-canary-internal",
+      "migrations_dir": "migrations/internal"
+    },
+    {
+      "binding": "DB_CLIENT_DEMO",
+      "database_name": "lead-canary-client-demo",
+      "migrations_dir": "migrations/client"
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "dev",
+    "ALERTS_ENABLED": "false",
+    "SIMULATE": "",
+    "INCIDENT_THRESHOLD": "2",
+    "HUBSPOT_API_BASE": "https://api.hubapi.com",
+    "HUBSPOT_FORMS_BASE": "https://api.hsforms.com",
+    // Set after `pnpm setup:hubspot` prints the demo form GUID. Empty = demo source disabled.
+    "DEMO_FORM_GUID": "",
+    // Minutes between demo canaries; every canary creates a contact in the test portal.
+    // Local demo runs pass --var DEMO_INTERVAL_MINUTES:5 (see .claude/launch.json, scripts/demo.md).
+    "DEMO_INTERVAL_MINUTES": "60",
+    // Prefix of the two custom contact properties: <prefix>_is_test and <prefix>_notified_at.
+    "PROPERTY_PREFIX": "leadcanary"
+  }
+}

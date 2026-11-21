@@ -1,0 +1,13 @@
+# Copy to .dev.vars (gitignored) and fill in. Never commit real values.
+# HubSpot private app token for the DEVELOPER TEST portal only.
+# Scopes: crm.objects.contacts.read, crm.objects.owners.read, crm.schemas.contacts.read,
+# crm.schemas.contacts.write, forms (setup script only), oauth (account-info portal check)
+HUBSPOT_TOKEN=replace-with-test-portal-private-app-token
+HUBSPOT_PORTAL_ID=00000000
+HUBSPOT_TEST_PORTAL_ID=00000000
+CANARY_DOMAIN=example.com
+HEALTHCHECKS_URL=https://hc-ping.com/replace-with-check-uuid
+ADMIN_TOKEN=replace-with-long-random-string
+# Optional
+SENTRY_DSN=
+RESEND_API_KEY=

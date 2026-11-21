@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm format)",
+      "Bash(pnpm cf-typegen)",
+      "Bash(pnpm db:migrate:local)",
+      "Bash(pnpm exec vitest:*)",
+      "Bash(pnpm exec biome:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(npx wrangler dev:*)",
+      "Bash(npx wrangler types:*)",
+      "Bash(npx wrangler d1 execute * --local:*)",
+      "Bash(npx wrangler d1 migrations apply * --local)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "mcp__cloudflare-docs",
+      "mcp__context7"
+    ],
+    "ask": [
+      "Bash(npx wrangler deploy:*)",
+      "Bash(wrangler deploy:*)",
+      "Bash(pnpm deploy)",
+      "Bash(pnpm db:migrate:remote)",
+      "Bash(*--remote*)",
+      "Bash(npx wrangler secret:*)",
+      "Bash(wrangler secret:*)",
+      "Bash(npx wrangler d1 create:*)",
+      "Bash(git push:*)",
+      "Bash(gh repo create:*)",
+      "mcp__cloudflare-api__execute",
+      "mcp__sentry"
+    ],
+    "deny": [
+      "Read(./.dev.vars)",
+      "Read(./.dev.vars.*)",
+      "Read(**/.env*)",
+      "Edit(./.dev.vars)",
+      "Edit(**/.env*)",
+      "Bash(rm -rf:*)",
+      "Bash(curl *Authorization*)",
+      "Bash(curl *authorization*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(*.dev.vars)",
+      "Bash(*.dev.vars *)",
+      "Bash(*/.dev.vars*)",
+      "Bash(* .env)",
+      "Bash(* .env.*)",
+      "Read(./.wrangler/**/*.sqlite)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/.claude/hooks/guard-secrets.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/.claude/hooks/post-edit-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
