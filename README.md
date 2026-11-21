@@ -1,5 +1,7 @@
 # hubspot-lead-canary
 
+[![CI](https://github.com/ui-d/hubspot-lead-canary/actions/workflows/ci.yml/badge.svg)](https://github.com/ui-d/hubspot-lead-canary/actions/workflows/ci.yml)
+
 Canary leads for HubSpot lead routing. A Cloudflare Worker submits a marked test lead through a
 HubSpot form on a schedule, then reads HubSpot back to check that the lead became a contact, got
 an **active** owner, and that the routing workflow notified them in time.
@@ -68,8 +70,8 @@ the workflow steps.
 ## Quick start (HubSpot developer test portal)
 
 Requirements: Node 20+, pnpm 11 (`corepack enable`), a Cloudflare account, a HubSpot developer
-test account, and optionally [gitleaks](https://github.com/gitleaks/gitleaks) for the pre-commit
-hook.
+test account, and [gitleaks](https://github.com/gitleaks/gitleaks): `pnpm install` sets up a
+pre-commit hook that blocks commits when gitleaks is missing.
 
 ```sh
 pnpm install
